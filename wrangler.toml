@@ -1,0 +1,19 @@
+# Cloudflare Worker with static assets (works with "npx wrangler deploy").
+name = "abr-site"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+
+# Keep variables set in the dashboard (wrangler would otherwise replace them on deploy).
+keep_vars = true
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "none"
+
+[vars]
+SITE_URL = "https://theabr.in"
+
+# APPS_SCRIPT_URL and API_SECRET: add them in the Cloudflare dashboard as Secrets
+# (Worker → Settings → Variables and Secrets), never in this file.
