@@ -1,0 +1,85 @@
+/* Seasonal designs. Loaded only while a design is switched on (Portal → Settings → Seasonal design).
+   Each design sets a ribbon, an accent colour, a masthead treatment and (optionally) drifting particles. */
+
+.fest-ribbon { position: relative; display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap;
+  padding: 10px 20px; font-size: 14.5px; line-height: 1.4; text-align: center; overflow: hidden; }
+.fest-ribbon p { margin: 0; }
+.fest-orns { display: inline-flex; gap: 6px; }
+.fest-orn svg { width: 30px; height: 30px; display: block; }
+.fest-cta { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; color: inherit; }
+.fest-hero h1 br { display: inline; }
+
+.fest-fx { position: fixed; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
+.fest-fx i { position: absolute; top: -40px; left: var(--x); animation: fest-fall var(--d) linear infinite; animation-delay: var(--delay); transform: scale(var(--s)); opacity: .85; }
+@keyframes fest-fall { to { transform: translate3d(40px, 112vh, 0) scale(var(--s)) rotate(240deg); } }
+.fx-snow i { width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
+.fx-spark i { width: 6px; height: 6px; background: #f2c14e; border-radius: 1px; }
+.fx-spark i:nth-child(3n) { background: #fff4c2; } .fx-spark i:nth-child(4n) { background: #e8590c; }
+.fx-colour i { width: 10px; height: 10px; border-radius: 50%; }
+.fx-colour i:nth-child(4n) { background: #e91e63; } .fx-colour i:nth-child(4n+1) { background: #ffc107; }
+.fx-colour i:nth-child(4n+2) { background: #00bcd4; } .fx-colour i:nth-child(4n+3) { background: #8bc34a; }
+.fx-petal i { width: 9px; height: 13px; border-radius: 60% 0 60% 0; background: #f5a623; }
+.fx-petal i:nth-child(2n) { background: #c2185b; }
+.fx-kite i { top: auto; bottom: -60px; width: 34px; opacity: .45; animation: fest-fly var(--d) ease-in-out infinite; animation-delay: var(--delay); }
+.fx-kite i svg { width: 34px; height: 44px; }
+@keyframes fest-fly { 0% { transform: translate3d(0, 0, 0) rotate(-8deg) scale(var(--s)); } 50% { transform: translate3d(60px, -60vh, 0) rotate(10deg) scale(var(--s)); }
+  100% { transform: translate3d(-20px, -125vh, 0) rotate(-6deg) scale(var(--s)); } }
+@media (prefers-reduced-motion: reduce) { .fest-fx { display: none; } .fest-orn .fl { animation: none !important; } }
+@media print { .fest-fx, .fest-ribbon { display: none !important; } }
+
+/* Christmas: holly green and berry red, snow */
+[data-theme=christmas] .fest-ribbon { background: #1f6b3a; color: #fff; border-bottom: 4px solid #c0262d; }
+[data-theme=christmas] .fest-ribbon { border-bottom: 0; box-shadow: inset 0 -5px 0 0 transparent; }
+[data-theme=christmas] .fest-ribbon::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: repeating-linear-gradient(90deg, #c0262d 0 18px, #fff 18px 36px); }
+[data-theme=christmas] main a:not(.btn):not(.w-btn) { text-decoration-color: #c0262d; }
+[data-theme=christmas] .fx-snow i { background: #dfe8f1; box-shadow: 0 0 0 1px #c9d6e3; opacity: .9; }
+
+/* New Year: midnight and gold */
+[data-theme=newyear] .fest-ribbon { background: linear-gradient(90deg, #0f1b3d, #1f2f66 50%, #0f1b3d); color: #f7f1e1; }
+[data-theme=newyear] .fest-ribbon b { color: #e8c25b; }
+[data-theme=newyear] .masthead { box-shadow: inset 0 3px 0 #e8c25b; }
+
+/* Uttarayan: Ahmedabad's sky full of kites */
+[data-theme=uttarayan] .fest-ribbon { background: linear-gradient(180deg, #bfe3ff, #eaf6ff); color: #0d2c4d; border-bottom: 2px solid #1e88e5; }
+[data-theme=uttarayan] .fest-orn svg { animation: fest-bob 3s ease-in-out infinite; }
+[data-theme=uttarayan] .fest-orn:nth-child(2) svg { animation-delay: -1s; } [data-theme=uttarayan] .fest-orn:nth-child(3) svg { animation-delay: -2s; }
+@keyframes fest-bob { 50% { transform: translateY(-4px) rotate(6deg); } }
+[data-theme=uttarayan] .masthead { box-shadow: inset 0 3px 0 #1e88e5; }
+
+/* Republic Day: navy with tricolour edges */
+[data-theme=republic] .fest-ribbon { background: #06038d; color: #fff; }
+[data-theme=republic] .fest-ribbon::before, [data-theme=republic] .fest-ribbon::after { content: ''; position: absolute; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, #ff9933 0 33.3%, #fff 33.3% 66.6%, #138808 66.6%); }
+[data-theme=republic] .fest-ribbon::before { top: 0; } [data-theme=republic] .fest-ribbon::after { bottom: 0; }
+[data-theme=republic] .fest-orn svg circle, [data-theme=republic] .fest-orn svg line { stroke: #fff; }
+[data-theme=republic] .fest-orn svg circle:last-of-type { fill: #fff; }
+
+/* Holi: colours */
+[data-theme=holi] .fest-ribbon { background: linear-gradient(90deg, #ffe0ef, #fff7d6 35%, #dcf7fb 70%, #e9f7dc); color: #3a1030; }
+[data-theme=holi] .fest-ribbon::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(90deg, #e91e63, #ffc107, #00bcd4, #8bc34a, #9c27b0); }
+[data-theme=holi] main a:not(.btn):not(.w-btn) { text-decoration-color: #e91e63; }
+
+/* Independence Day: saffron, white, green */
+[data-theme=independence] .fest-ribbon { background: linear-gradient(180deg, #ff9933 0 33.3%, #fff 33.3% 66.6%, #138808 66.6%); color: #06038d; padding: 14px 20px; }
+[data-theme=independence] .fest-ribbon p, [data-theme=independence] .fest-cta { background: rgba(255,255,255,.92); padding: 2px 10px; }
+
+/* Navratri: garba colours and bandhani dots */
+[data-theme=navratri] .fest-ribbon { background-color: #7b1e3a; color: #fff;
+  background-image: radial-gradient(#f5a623 1.4px, transparent 1.6px), radial-gradient(#fff 1.2px, transparent 1.4px);
+  background-size: 16px 16px; background-position: 0 0, 8px 8px; }
+[data-theme=navratri] .fest-ribbon p, [data-theme=navratri] .fest-cta { background: #7b1e3a; padding: 2px 8px; }
+[data-theme=navratri] .masthead { box-shadow: inset 0 4px 0 #f5a623; }
+
+/* Diwali: night sky, gold and diyas */
+[data-theme=diwali] .fest-ribbon { background: radial-gradient(ellipse at center, #4a1159, #2a0833 70%); color: #fff4dc; border-bottom: 3px solid #f6b93b; }
+[data-theme=diwali] .fest-ribbon b { color: #f6b93b; }
+[data-theme=diwali] .fest-orn .fl { transform-origin: 24px 17px; animation: fest-flicker 1.4s ease-in-out infinite; }
+[data-theme=diwali] .fest-orn:nth-child(2) .fl { animation-delay: -.5s; } [data-theme=diwali] .fest-orn:nth-child(3) .fl { animation-delay: -.9s; }
+@keyframes fest-flicker { 50% { transform: scale(1.12, .9); opacity: .85; } }
+[data-theme=diwali] .masthead { box-shadow: inset 0 4px 0 #f6b93b; }
+
+/* Mourning: quiet and monochrome. No greetings, no decoration. */
+[data-theme=mourning] .fest-ribbon { background: #111; color: #eee; font-size: 14px; padding: 9px 20px; }
+[data-theme=mourning] .fest-band { width: 22px; height: 10px; background: #000; border: 1px solid #555; transform: skewX(-20deg); }
+[data-theme=mourning] main img, [data-theme=mourning] .masthead img { filter: grayscale(1); }
+[data-theme=mourning] .masthead { border-top: 4px solid #000; }
