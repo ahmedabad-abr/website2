@@ -1,0 +1,42 @@
+# Cloudflare Worker with static assets (works with "npx wrangler deploy").
+name = "abr-site"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+
+# Keep variables set in the dashboard (wrangler would otherwise replace them on deploy).
+keep_vars = true
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "none"
+
+[vars]
+SITE_URL = "https://theabr.in"
+
+# APPS_SCRIPT_URL and API_SECRET: add them in the Cloudflare dashboard as Secrets
+# (Worker → Settings → Variables and Secrets), never in this file.
+
+# Optional: permanent storage for generated PDFs (recommended).
+# 1. Cloudflare dashboard → Storage & Databases → KV → Create namespace "abr-pdfs"
+# 2. Copy its ID, then uncomment the three lines below and paste the ID.
+# [[kv_namespaces]]
+# binding = "PDFS"
+# id = "PASTE_YOUR_KV_NAMESPACE_ID_HERE"
+
+# PDF generation (Cloudflare Browser Rendering) needs two Secrets in the dashboard:
+# CF_ACCOUNT_ID and CF_API_TOKEN (an API token with "Browser Rendering: Edit" permission).
+
+# Optional: page analytics (views per page, day, country and referrer; no cookies, no personal data).
+# 1. Cloudflare dashboard → Storage & Databases → D1 → Create database "abr-analytics"
+# 2. Copy its Database ID, then uncomment the four lines below and paste the ID.
+#    The table is created automatically on the first page view.
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "abr-analytics"
+# database_id = "PASTE_YOUR_D1_DATABASE_ID_HERE"
+
+# Keep Worker logs (console output) so failed AI drafts can be inspected in the dashboard.
+[observability]
+enabled = true
